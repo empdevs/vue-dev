@@ -4,7 +4,7 @@ import './registerServiceWorker';
 import router from './router';
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
-
+import VSwitch from '@lmiller1990/v-switch';
 // createApp(App).use(router).mount('#app');
 const app = createApp(App);
 app.use(router);
