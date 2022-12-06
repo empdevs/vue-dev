@@ -1,13 +1,19 @@
 <template>
     <a-table :columns="columns" :data-source="data">
         <template #bodyCell="{ column, record }">
-            <template v-switch="column.key">
-                <template v-case="'name'">
+            <VSwitch :case="column.key">
+                <template #name>
                     <a>
-                        {{ record.name }}
+                        {{record.name}}
                     </a>
                 </template>
-                <template v-case="'tags'">
+                <template #age>
+                        {{record.age}}
+                </template>
+                <template #address>
+                        {{record.address}}
+                </template>
+                <template #tags>
                     <span>
                         <a-tag v-for="tag in record.tags" :key="tag"
                             :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'">
@@ -15,7 +21,7 @@
                         </a-tag>
                     </span>
                 </template>
-                <template v-case="'action'">
+                <template #action>
                     <span>
                         <a>Invite 一 {{ record.name }}</a>
                         <a-divider type="vertical" />
@@ -27,14 +33,15 @@
                         </a>
                     </span>
                 </template>
-            </template>
+            </VSwitch>
         </template>
     </a-table>
 </template>
 <script lang="ts">
 import { SmileOutlined, DownOutlined } from '@ant-design/icons-vue';
-import App, { defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import VSwitch from '@lmiller1990/v-switch';
+// import CreateUser from './CreateUser.vue';
 
 const columns = [
     {
@@ -88,9 +95,12 @@ const data = [
 ];
 
 export default defineComponent({
+    name:"UserList",
     components: {
         // SmileOutlined,
         DownOutlined,
+        VSwitch,
+        // CreateUser
     },
     data() {
         return {

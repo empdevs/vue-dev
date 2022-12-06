@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <router-link to="/about">About</router-link>
+    <router-link to="/About">About</router-link>
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
   </div>
-  <RouterView/>
+  <!-- <RouterView/> -->
 </template>
 
 <script lang="ts">
