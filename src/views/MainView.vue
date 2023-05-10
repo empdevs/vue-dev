@@ -1,24 +1,15 @@
-<template>
-    <!-- <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/user">User</router-link>
-    </nav>
-    <router-view/> -->
-  
+<template>  
     <a-layout>
       <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
         <div class="logo" />
         <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
-          <RouterLink to="/Home">
-          <a-menu-item key="1">
-            <!-- <user-outlined /> -->
-            <span>Home</span>
-          </a-menu-item>
+          <RouterLink to="/Home" style="text-decoration:none">
+            <a-menu-item key="1" @click="handleSelectedKeys('1')" v-bind:class="(selectedKeys[0] == '1') ? 'ant-menu-item-selected active' : '' " >
+              <span>Home</span>
+            </a-menu-item>
         </RouterLink>
-        <RouterLink to="/User">
-          <a-menu-item key="2">
-            <!-- <video-camera-outlined /> -->
+        <RouterLink to="/User" style="text-decoration:none">
+          <a-menu-item key="2" @click="handleSelectedKeys('2')" v-bind:class="(selectedKeys[0] == '2') ? 'ant-menu-item-selected active' : '' ">
             <span>User</span>
           </a-menu-item>
         </RouterLink>
@@ -51,22 +42,40 @@
       MenuFoldOutlined,
     } from '@ant-design/icons-vue';
     import { defineComponent, ref } from 'vue';
+    import IMainState from '../Types';
+
     export default defineComponent({
       name:"Main",
       components: {
         MenuUnfoldOutlined,
         MenuFoldOutlined,
       },
-      setup() {
-        console.log("setup");
-        // const router = useRouter();
-        // router.push('/home');
-
+      data(){
         return {
-          selectedKeys: ref<string[]>(['1']),
-          collapsed: ref<boolean>(false),
+          selectedKeys : [''],
+          collapsed: false,
         };
       },
+      methods:{
+        handleSelectedKeys(key:string){
+          this.selectedKeys = [key];
+        }
+      },
+      mounted(){
+        const routerHome : any = `${window.location.protocol}//${window.location.host}/Home`;
+        const routerUser : any = `${window.location.protocol}//${window.location.host}/User`;
+        
+        switch (window.location.href) {
+          case routerHome:
+            this.selectedKeys = ['1'];
+          break;
+          case routerUser:
+            this.selectedKeys = ['2'];
+          break;
+          default:
+          break;
+        }
+      }
     });
   </script>
   <style>
@@ -77,19 +86,19 @@
     cursor: pointer;
     transition: color 0.3s;
   }
-  
   .trigger:hover {
     color: #1890ff;
   }
-  
   .logo {
     height: 32px;
     background: rgba(255, 255, 255, 0.3);
     margin: 16px;
   }
-  
   .site-layout .site-layout-background {
     background: #fff;
+  }
+  .ant-layout.ant-layout-has-sider{
+    height: 100vw;
   }
   </style>
   
